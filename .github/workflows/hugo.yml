@@ -36,7 +36,7 @@ jobs:
 
     - name: Fetch Discussions Data and Update Markdown
       env:
-        GITHUB_TOKEN: ${{ secrets.G_TOKEN }}
+        G_TOKEN: ${{ secrets.G_TOKEN }}
       run: |
         python - <<EOF
         import requests
