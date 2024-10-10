@@ -1,0 +1,35 @@
+name: Get Discussions Count
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-discussions-count:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Fetch Discussions Count
+      id: get_count
+      run: |
+        curl -s \
+          -H "Authorization: Bearer ${{ secrets.G_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/discussions \
+          | jq '. | length' > discussions_count.txt
+
+    - name: Display Discussions Count
+      run: |
+        count=$(cat discussions_count.txt)
+        echo "Total Discussions Count: $count"
+
+    - name: Set Discussions Count as Output
+      id: set_output
+      run: |
+        count=$(cat discussions_count.txt)
+        echo "::set-output name=discussions_count::$count"
+
+    - name: Print Discussions Count in Workflow
+      run: |
+        echo "The total number of discussions is ${{ steps.set_output.outputs.discussions_count }}"

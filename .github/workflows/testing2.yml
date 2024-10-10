@@ -1,0 +1,179 @@
+name: testing
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '* * * * *'  # Run every minute
+
+permissions:
+  contents: write
+
+jobs:
+  get-discussions-data:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Fetch Discussions Data and Update Markdown
+      env:
+        GITHUB_TOKEN: ${{ secrets.G_TOKEN }}
+      run: |
+        python - <<EOF
+        import requests
+        import os
+        import re
+        import sys
+        from collections import defaultdict
+
+        def get_all_discussions(repo):
+            url = f"https://api.github.com/repos/{repo}/discussions"
+            headers = {
+                'Authorization': f"Bearer {os.environ['GITHUB_TOKEN']}",
+                'Accept': 'application/vnd.github.v3+json'
+            }
+            all_discussions = []
+            page = 1
+            while True:
+                response = requests.get(url, headers=headers, params={'per_page': 100, 'page': page})
+                if response.status_code != 200:
+                    print(f"Error fetching discussions: {response.status_code}")
+                    print(f"Response content: {response.text}")
+                    sys.exit(1)
+                discussions = response.json()
+                if not discussions:
+                    break
+                all_discussions.extend(discussions)
+                page += 1
+            return all_discussions
+
+        try:
+            repo = os.environ['GITHUB_REPOSITORY']
+            discussions = get_all_discussions(repo)
+
+            count_by_category = {}
+            count_by_label = {}
+            no_label_count = 0
+            open_count = 0
+            closed_count = 0
+            contributors = defaultdict(int)
+            most_commented = []
+            unanswered_discussions = []
+
+            for discussion in discussions:
+                # Count open vs closed
+                if discussion.get('state') == 'open':
+                    open_count += 1
+                else:
+                    closed_count += 1
+
+                # Track contributors
+                user = discussion.get('user', {}).get('login')
+                if user:
+                    contributors[user] += 1
+
+                # Count by category
+                category = discussion.get('category')
+                if category and 'name' in category:
+                    category_name = category['name']
+                    count_by_category[category_name] = count_by_category.get(category_name, 0) + 1
+
+                # Count by label
+                labels = discussion.get('labels', [])
+                if labels:
+                    for label in labels:
+                        label_name = label['name']
+                        count_by_label[label_name] = count_by_label.get(label_name, 0) + 1
+                else:
+                    no_label_count += 1
+
+                # Track most commented discussions
+                comments_count = discussion.get('comments', 0)
+                most_commented.append((discussion['title'], comments_count, discussion['html_url']))
+
+                # Track unanswered discussions (0 comments)
+                if comments_count == 0:
+                    unanswered_discussions.append(discussion)
+
+            most_commented.sort(key=lambda x: x[1], reverse=True)
+
+            # Prepare top contributors
+            top_contributors = sorted(contributors.items(), key=lambda x: x[1], reverse=True)[:5]
+
+            # Create the new content
+            new_content = f"\n## Additional Discussion Stats\n\n"
+            new_content += f"- **Total Discussions**: {len(discussions)}\n"
+            new_content += f"- **Open Discussions**: {open_count}\n"
+            new_content += f"- **Closed Discussions**: {closed_count}\n\n"
+
+            # Add category counts
+            new_content += "### Discussions by Category\n\n"
+            new_content += "| Category       | Discussion Count |\n"
+            new_content += "|----------------|------------------|\n"
+            for category, count in count_by_category.items():
+                new_content += f"| {category} | {count} |\n"
+
+            # Add recent discussions
+            new_content += "\n### Recent Discussions\n\n"
+            recent_discussions = discussions[:5]
+            for disc in recent_discussions:
+                new_content += f"- [{disc['title']}]({disc['html_url']}) - Created on {disc['created_at']}\n"
+
+            # Add top contributors
+            new_content += "\n### Top Contributors\n\n"
+            new_content += "| User         | Discussions Created |\n"
+            new_content += "|--------------|---------------------|\n"
+            for user, count in top_contributors:
+                new_content += f"| @{user} | {count} |\n"
+
+            # Add most engaging discussions
+            new_content += "\n### Most Engaging Discussions\n\n"
+            for title, comments, url in most_commented[:5]:
+                new_content += f"- [{title}]({url}) - {comments} comments\n"
+
+            # Add unanswered discussions
+            new_content += "\n### Unanswered Discussions\n\n"
+            for disc in unanswered_discussions[:5]:
+                new_content += f"- [{disc['title']}]({disc['html_url']}) - Created on {disc['created_at']}\n"
+
+            # Read the existing content of index.md
+            with open('index.md', 'r') as f:
+                content = f.read()
+
+            # Define the pattern to match the existing "Additional Discussion Stats" section and replace it
+            section_pattern = r"(## Additional Discussion Stats\n.*)(\n### Unanswered Discussions\n.*)?"
+
+            # Replace or add the new content after the 6th line
+            lines = content.splitlines()
+            if re.search(section_pattern, content, re.DOTALL):
+                updated_content = re.sub(section_pattern, new_content, content, flags=re.DOTALL)
+            else:
+                updated_content = '\n'.join(lines[:6]) + '\n' + new_content + '\n'.join(lines[6:])
+
+            # Write the updated content back to index.md
+            with open('index.md', 'w') as f:
+                f.write(updated_content)
+
+            print("Successfully updated index.md")
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            sys.exit(1)
+        EOF
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add index.md
+        git commit -m "Update discussions data" || echo "No changes to commit"
+        git push || echo "No changes to push"
