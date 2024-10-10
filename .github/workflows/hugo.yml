@@ -48,7 +48,7 @@ jobs:
         def get_all_discussions(repo):
             url = f"https://api.github.com/repos/{repo}/discussions"
             headers = {
-                'Authorization': f"Bearer {os.environ['GITHUB_TOKEN']}",
+                'Authorization': f"Bearer {os.environ['G_TOKEN']}",
                 'Accept': 'application/vnd.github.v3+json'
             }
             all_discussions = []
