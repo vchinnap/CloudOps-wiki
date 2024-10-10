@@ -1,4 +1,4 @@
-baseURL: "https://yoursite.example.com/"
+baseURL: "/CloudOps-Discussions"
 title: "My Hugo Site"
 theme: "LoveIt"  # Assuming you're using the LoveIt theme
 
