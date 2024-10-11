@@ -2,8 +2,8 @@ name: testing
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '* * * * *'  # Run every minute
+ # schedule:
+#    - cron: '* * * * *'  # Run every minute
 
 permissions:
   contents: write
