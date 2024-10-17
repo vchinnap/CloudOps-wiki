@@ -5,6 +5,6 @@
     "build": "astro build"
   },
   "dependencies": {
-    "astro": "^2.0.0"  // Make sure to use the latest version of Astro
+    "astro": "^2.0.0"
   }
 }
