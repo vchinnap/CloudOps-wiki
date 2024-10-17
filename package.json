@@ -2,11 +2,9 @@
   "name": "my-astro-site",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "astro build"
   },
   "dependencies": {
-    "astro": "^2.0.0"
+    "astro": "^2.0.0"  // Make sure to use the latest version of Astro
   }
 }
