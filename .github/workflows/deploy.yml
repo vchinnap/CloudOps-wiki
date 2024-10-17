@@ -1,0 +1,33 @@
+name: Deploy Hugo site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change if you're using a different branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'  # Use the latest version of Hugo
+
+    - name: Install Hugo Theme
+      run: |
+        git submodule update --init --recursive
+        # If using a theme stored as a submodule, you may need this step
+
+    - name: Build Hugo Site
+      run: hugo
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.G_TOKEN }}
+        publish_dir: ./public
