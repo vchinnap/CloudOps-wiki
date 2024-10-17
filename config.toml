@@ -1,0 +1,3 @@
+baseURL = 'https://vchinnap.github.io/'
+languageCode = 'en-us'
+title = 'My Basic Hugo Site'
