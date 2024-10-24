@@ -1,4 +1,4 @@
-baseURL = "https://your-username.github.io/hugo-discourse-poc/"  # Change to your GitHub Pages URL
+baseURL = "https://vchinnap/hugo-discourse-poc/"  # Change to your GitHub Pages URL
 languageCode = "en-us"
 title = "My Hugo Site"
 theme = "ananke" # Change to the theme you’re using
