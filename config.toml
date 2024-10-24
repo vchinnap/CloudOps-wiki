@@ -1,0 +1,32 @@
+baseURL = "https://your-username.github.io/CloudOps-wiki/"  # Change to your GitHub Pages URL
+languageCode = "en-us"
+title = "My Hugo Site"
+theme = "your-theme"  # Change to the theme you’re using
+publishDir = "public"
+paginate = 10
+summaryLength = 70
+
+[params]
+  description = "This is a demo Hugo site"
+  author = "Your Name"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allows raw HTML in Markdown content
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "azure-logic-apps"
+    name = "Azure Logic Apps"
+    url = "/azure-logic-apps/"
+    weight = 2
+
+[outputs]
+  home = ["HTML", "RSS"]
