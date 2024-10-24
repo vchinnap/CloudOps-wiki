@@ -1,7 +1,7 @@
 baseURL = "https://your-username.github.io/CloudOps-wiki/"  # Change to your GitHub Pages URL
 languageCode = "en-us"
 title = "My Hugo Site"
-theme = "your-theme"  # Change to the theme you’re using
+theme = "ananke" # Change to the theme you’re using
 publishDir = "public"
 paginate = 10
 summaryLength = 70
