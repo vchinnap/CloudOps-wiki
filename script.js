@@ -4,9 +4,9 @@ async function searchDiscussions() {
   const query = document.getElementById('searchInput').value;
   if (query.length < 2) return; // Start search after 2 characters
 
-  const token = 'YOUR_GITHUB_TOKEN'; // Replace with your GitHub token
-  const repoOwner = 'YOUR_USERNAME'; // Replace with your GitHub username
-  const repoName = 'YOUR_REPO_NAME'; // Replace with your repository name
+  const token = G_TOKEN ; // Replace with your GitHub token
+  const repoOwner = 'vchinnap'; // Replace with your GitHub username
+  const repoName = 'confluence-poc'; // Replace with your repository name
 
   try {
     const response = await fetch('https://api.github.com/graphql', {
