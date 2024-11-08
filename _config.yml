@@ -1,16 +1,22 @@
 remote_theme: pmarsceill/just-the-docs
-title: "My Documentation Site"
-description: "A documentation site using the Just the Docs theme."
+title: "My Project Documentation"
+description: "Comprehensive guides and documentation"
+logo: "/assets/images/logo.png"
 
 just_the_docs:
-  logo: "/path/to/logo.png" # Optional
-  color_scheme: light # or dark
-  search_enabled: true
-  collections:
-    sidebar:
-      - name: "Getting Started"
-        url: /getting-started/
-      - name: "Features"
-        url: /features/
+  color_scheme: light
   search:
     enabled: true
+  nav:
+    - title: "Getting Started"
+      items:
+        - name: "Introduction"
+          link: /getting-started/introduction
+        - name: "Installation"
+          link: /getting-started/installation
+    - title: "Features"
+      items:
+        - name: "Feature 1"
+          link: /features/feature1
+        - name: "Feature 2"
+          link: /features/feature2
