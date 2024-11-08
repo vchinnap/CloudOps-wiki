@@ -3,40 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Documentation Site</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/custom.css"> <!-- Link to your custom CSS -->
+    <title>Welcome to My Documentation Site</title>
+    <link rel="stylesheet" href="/assets/css/custom.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Documentation Site</h1>
-        <p>Explore guides, tutorials, and documentation for all your needs.</p>
-        <button onclick="toggleTheme()">Toggle Dark Mode</button> <!-- Dark mode toggle -->
-    </header>
 
-    <main>
-        <section>
-            <h2>Sections</h2>
-            <ul>
-                <li><a href="/getting-started/introduction">Getting Started</a></li>
-                <li><a href="/features/feature1">Features</a></li>
-                <li><a href="/issue-pr-templates/about-templates">Issue & PR Templates</a></li>
-            </ul>
-        </section>
+<!-- Header -->
+<header>
+    <h1>Welcome to My Documentation Site</h1>
+    <p>This is the homepage of your documentation site, styled to mimic GitHub Docs.</p>
+    <button onclick="toggleTheme()">Toggle Dark Mode</button>
+</header>
 
-        <section>
-            <h2>Popular Topics</h2>
-            <ul>
-                <li><a href="/getting-started/setup">Setup Guide</a></li>
-                <li><a href="/features/feature2">Advanced Features</a></li>
-            </ul>
-        </section>
-    </main>
+<!-- Main Content -->
+<main>
+    <section>
+        <h2>Getting Started</h2>
+        <ul>
+            <li><a href="getting-started/introduction.html">Introduction</a></li>
+            <li><a href="getting-started/setup.html">Setup</a></li>
+        </ul>
+    </section>
 
-    <footer>
-        <p>&copy; 2024 My Documentation Site. All rights reserved.</p>
-    </footer>
+    <section>
+        <h2>Features</h2>
+        <ul>
+            <li><a href="features/feature1.html">Feature 1</a></li>
+            <li><a href="features/feature2.html">Feature 2</a></li>
+        </ul>
+    </section>
 
-    <script src="/assets/js/theme-toggle.js"></script> <!-- Link to your theme toggle script -->
+    <section>
+        <h2>Issue & PR Templates</h2>
+        <ul>
+            <li><a href="issue-pr-templates/about-templates.html">About Templates</a></li>
+            <li><a href="issue-pr-templates/configure.html">Configure</a></li>
+        </ul>
+    </section>
+</main>
+
+<script src="/assets/js/theme-toggle.js"></script>
 </body>
 </html>
