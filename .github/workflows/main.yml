@@ -1,0 +1,31 @@
+name: Fetch Discussions
+
+on:
+  schedule:
+    - cron: '* * * * *' # Runs every minute
+  workflow_dispatch:
+
+jobs:
+  fetch-discussions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Discussions
+        env:
+          GITHUB_TOKEN: ${{ secrets.G_TOKEN }}
+        run: |
+          curl -X POST -H "Authorization: bearer $GITHUB_TOKEN" -H "Content-Type: application/json" \
+          -d '{"query": "query { repository(owner: \"vchinnap\", name: \"CloudOps-Discussions\") { discussions(first: 10) { nodes { title url bodyText } } } }"}' \
+          https://api.github.com/graphql > discussions.json
+
+      - name: Save Discussions to Repository
+        run: |
+          mkdir -p public
+          mv discussions.json public/discussions.json
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update discussions.json"
+          file_pattern: "public/discussions.json"
