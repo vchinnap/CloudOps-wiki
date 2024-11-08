@@ -1,15 +1,14 @@
-Here's a Markdown file that explains the setup steps for the AWS CLI (Command Line Interface). This guide includes installation instructions for different operating systems, configuration steps, and example commands to verify the setup.
+---
+title: "Getting Started with AWS EC2"
+layout: default
+toc: true
+---
+
 
 ---
 
 ### `aws-cli-setup.md`
 
-```markdown
----
-title: "Setting Up AWS CLI"
-layout: default
-toc: true
----
 
 # Setting Up AWS CLI
 
