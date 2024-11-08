@@ -1,6 +1,6 @@
 ---
 title: "Welcome to My Documentation Site"
-toc: false
+toc: true
 layout: default
 ---
 # Welcome to My Documentation Site
