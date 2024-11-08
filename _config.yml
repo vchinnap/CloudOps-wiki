@@ -3,28 +3,26 @@ title: "My Documentation Site"
 description: "A documentation site similar to GitHub Docs."
 
 just_the_docs:
-  logo: "/assets/images/logo.png"  # Optional logo path
-  color_scheme: light  # Default color scheme (can be toggled with JS)
+  logo: "/assets/images/logo.png"  # Optional: specify path to logo
+  color_scheme: light  # Choose light or dark color scheme
   search:
-    enabled: true  # Enables built-in search functionality
+    enabled: true  # Enable search functionality
   nav:
-    - title: "Getting Started"
-      items:
-        - name: "Introduction"
-          link: /getting-started/introduction
-        - name: "Setup"
-          link: /getting-started/setup
-    - title: "Features"
-      items:
-        - name: "Feature 1"
-          link: /features/feature1
-        - name: "Feature 2"
-          link: /features/feature2
-    - title: "Issue & PR Templates"
-      items:
-        - name: "About Templates"
-          link: /issue-pr-templates/about-templates
-        - name: "Configure"
-          link: /issue-pr-templates/configure
-additional_css:
-  - assets/css/custom.css
+    - title: "Quickstart"
+      url: /quickstart/
+    - title: "About GitHub Copilot"
+      children:
+        - title: "Setup"
+          children:
+            - title: "Setup Instructions"
+              url: /setup/setup-instructions/
+        - title: "Use GitHub Copilot"
+          children:
+            - title: "Best Practices"
+              url: /use-github-copilot/best-practices/
+            - title: "Get Code Suggestions"
+              url: /use-github-copilot/get-code-suggestions/
+            - title: "Chat in IDE"
+              url: /use-github-copilot/chat-in-ide/
+  additional_css:
+    - assets/css/custom.css
