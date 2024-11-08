@@ -1,0 +1,26 @@
+/* General font and layout adjustments */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Dark mode styles */
+.dark-theme {
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+.dark-theme .sidebar {
+    background-color: #161b22;
+}
+
+.dark-theme h1, .dark-theme h2, .dark-theme h3 {
+    color: #58a6ff;
+}
+
+/* Sticky Table of Contents */
+.toc {
+    position: sticky;
+    top: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
