@@ -1,4 +1,4 @@
 ---
 title: "Welcome to My Documentation Site"
-layout: homepage
+layout: default
 ---
