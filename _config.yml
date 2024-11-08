@@ -1,22 +1,30 @@
 remote_theme: pmarsceill/just-the-docs
-title: "My Project Documentation"
-description: "Comprehensive guides and documentation"
-logo: "/assets/images/logo.png"
+title: "My Documentation Site"
+description: "A documentation site similar to GitHub Docs."
 
 just_the_docs:
-  color_scheme: light
+  logo: "/assets/images/logo.png"  # Optional logo path
+  color_scheme: light  # Default color scheme (can be toggled with JS)
   search:
-    enabled: true
+    enabled: true  # Enables built-in search functionality
   nav:
     - title: "Getting Started"
       items:
         - name: "Introduction"
           link: /getting-started/introduction
-        - name: "Installation"
-          link: /getting-started/installation
+        - name: "Setup"
+          link: /getting-started/setup
     - title: "Features"
       items:
         - name: "Feature 1"
           link: /features/feature1
         - name: "Feature 2"
           link: /features/feature2
+    - title: "Issue & PR Templates"
+      items:
+        - name: "About Templates"
+          link: /issue-pr-templates/about-templates
+        - name: "Configure"
+          link: /issue-pr-templates/configure
+additional_css:
+  - assets/css/custom.css
