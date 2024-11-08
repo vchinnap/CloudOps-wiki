@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with AWS EC2"
+title: "aws-cli-setup"
 layout: default
 toc: true
 ---
